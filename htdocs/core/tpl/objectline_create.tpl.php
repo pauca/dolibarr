@@ -47,7 +47,7 @@ if (in_array($object->element,array('propal', 'askpricesupplier','facture','invo
 ?>
 
 <!-- BEGIN PHP TEMPLATE objectline_create.tpl.php -->
-
+<!-- germinal/
 <tr class="liste_titre nodrag nodrop">
 	<td<?php echo (! empty($conf->global->MAIN_VIEW_LINE_NUMBER) ? ' colspan="2"' : ''); ?>>
 	<div id="add"></div><span class="hideonsmartphone"><?php echo $langs->trans('AddNewLine'); ?></span><?php // echo $langs->trans("FreeZone"); ?>
@@ -55,7 +55,7 @@ if (in_array($object->element,array('propal', 'askpricesupplier','facture','invo
 	<?php if ($object->element == 'askpricesupplier') { ?>
 		<td align="right"><span id="title_fourn_ref"><?php echo $langs->trans('AskPriceSupplierRefFourn'); ?></span></td>
 	<?php } ?>
-	<td align="right"><span id="title_vat"><?php echo $langs->trans('VAT'); ?></span></td>
+	<td align="right"><span id="title_vat" ><?php echo $langs->trans('VAT'); ?></span></td>
 	<td align="right"><span id="title_up_ht"><?php echo $langs->trans('PriceUHT'); ?></span></td>
 	<?php if (! empty($inputalsopricewithtax)) { ?>
 	<td align="right"><span id="title_up_ttc"><?php echo $langs->trans('PriceUTTC'); ?></span></td>
@@ -93,7 +93,7 @@ if (in_array($object->element,array('propal', 'askpricesupplier','facture','invo
 	?>
 	<td colspan="<?php echo $colspan; ?>">&nbsp;</td>
 </tr>
-
+-->
 <tr <?php echo $bcnd[$var]; ?>>
 <?php
 if (! empty($conf->global->MAIN_VIEW_LINE_NUMBER)) {
@@ -114,6 +114,7 @@ else {
 	}
 
 	// Free line
+	if(false){//endgerminal
 	echo '<span>';
 	// Show radio free line
 	if ($forceall >= 0 && (! empty($conf->product->enabled) || ! empty($conf->service->enabled)))
@@ -142,7 +143,7 @@ else {
 	echo $form->select_type_of_lines(isset($_POST["type"])?$_POST["type"]:-1,'type',1,1,$forceall);
 
 	echo '</span>';
-
+	}	//endgerminal
 	// Predefined product/service
 	if (! empty($conf->product->enabled) || ! empty($conf->service->enabled))
 	{
@@ -237,7 +238,8 @@ else {
 		print '</td>';
 	}
 	?>
-	<td class="nobottom nowrap" align="right"><input type="text" size="1" name="remise_percent" id="remise_percent" class="flat" value="<?php echo (isset($_POST["remise_percent"])?$_POST["remise_percent"]:$buyer->remise_percent); ?>"><span class="hideonsmartphone">%</span></td>
+	<!--germinal-->
+	<td class="nobottom nowrap" align="right" style="visibility:hidden" ><input type="text" size="1" name="remise_percent" id="remise_percent" class="flat" style="visibility:hidden" value="<?php echo (isset($_POST["remise_percent"])?$_POST["remise_percent"]:$buyer->remise_percent); ?>"><span class="hideonsmartphone">%</span></td>
 	<?php
 	if ($this->situation_cycle_ref) {
 		$coldisplay++;
@@ -246,7 +248,7 @@ else {
 	if (! empty($usemargins))
 	{
 		?>
-		<td class="nobottom" align="right" class="margininfos">
+		<td class="nobottom" align="right" class="margininfos" style="visibility:hidden" > <!--germinal-->
 			<!-- For predef product -->
 			<?php if (! empty($conf->product->enabled) || ! empty($conf->service->enabled)) { ?>
 			<select id="fournprice_predef" name="fournprice_predef" class="flat" data-role="none" style="display: none;"></select>
@@ -477,6 +479,10 @@ if (! empty($usemargins) && $user->rights->margins->creer)
 
 /* JQuery for product free or predefined select */
 jQuery(document).ready(function() {
+	/*germinal */
+	setforpredef();
+
+	
 	$("#prod_entry_mode_free").on( "click", function() {
 		setforfree();
 	});
@@ -554,7 +560,7 @@ jQuery(document).ready(function() {
 
 	      		/* Define default price at loading */
 	      		var defaultprice = $("#fournprice_predef").find('option:selected').attr("price");
-			    $("#buying_price").val(defaultprice);
+	      		$("#buying_price").val(Math.round(defaultprice,<?php print ($conf->global->MAIN_MAX_DECIMALS_UNIT ? $conf->global->MAIN_MAX_DECIMALS_UNIT : 5); ?>));
 
 	      		$("#fournprice_predef").change(function() {
 		      		console.log("change on fournprice_predef");
@@ -581,12 +587,15 @@ jQuery(document).ready(function() {
   		/* To set focus */
   		if (jQuery('#idprod').val() > 0) jQuery('#dp_desc').focus();
 		if (jQuery('#idprodfournprice').val() > 0) jQuery('#dp_desc').focus();
+		//germinal
+		
 	});
 
 	<?php if (GETPOST('prod_entry_mode') == 'predef') { // When we submit with a predef product and it fails we must start with predef ?>
 		setforpredef();
 	<?php } ?>
-
+	
+	
 });
 
 /* Function to set fields from choice */
