@@ -206,6 +206,14 @@ if (empty($reshook))
 				}
 				else
 				{
+					//germinal
+					$newprice = $_POST["price"] * (1.0+ $_POST["remise_percent"]/100.0) * 1.2 ;
+					$ret = $product->updatePrice($newprice , $_POST["price_base_type"], $user, $_POST["tva_tx"], $newprice );
+					if (!($ret < 0))
+					{
+						setEventMessage("Preu de client actualitzat", 'warnings');
+					}
+					//end germinal
 					if ($price_expression !== '')
 					{
 						//Check the expression validity by parsing it

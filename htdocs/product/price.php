@@ -656,6 +656,30 @@ print '<tr><td>' . $langs->trans("Status") . ' (' . $langs->trans("Sell") . ')</
 print $object->getLibStatut(2, 0);
 print '</td></tr>';
 
+print '<tr><td>'. 'Preu  de venta teòric germinal' . '</td><td>';
+$sql = 'SELECT * FROM `llx_product_fournisseur_price` WHERE fk_product = '.$object->id.' order BY tms DESC limit 1';
+$result = $db->query($sql);
+
+if ($result){
+	//print_r($object->price);
+	foreach ($result as $res){
+		$price_from_fournisseur = $res['price'] * 1.20 * ( 100.0 - $res['remise_percent'])/100.0; 
+		if (round($price_from_fournisseur,2) == round(  $object->price,2) ){
+			print '<span style="color:green">';
+		}else{
+			print '<span style="color:red">';
+		}
+		print round($price_from_fournisseur,2) . ' = (Preu de cost sense IVA : '.price($res['price']).') * (Descompte Productor : '.$res['remise_percent'].'% ) * (Marge : 20%) ';
+		print '</span>';
+	}
+}else{
+	print ("No hi ha preu de proveidor.");
+}
+
+print '</td></tr>';
+
+
+
 print "</table>\n";
 
 dol_fiche_end();
