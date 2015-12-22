@@ -47,7 +47,12 @@ if (in_array($object->element,array('propal', 'askpricesupplier','facture','invo
 ?>
 
 <!-- BEGIN PHP TEMPLATE objectline_create.tpl.php -->
-<!-- germinal/
+<!-- germinal -->
+<?php 
+print  $object->element;
+ if ($object->element != 'facture') { 
+	?>
+
 <tr class="liste_titre nodrag nodrop">
 	<td<?php echo (! empty($conf->global->MAIN_VIEW_LINE_NUMBER) ? ' colspan="2"' : ''); ?>>
 	<div id="add"></div><span class="hideonsmartphone"><?php echo $langs->trans('AddNewLine'); ?></span><?php // echo $langs->trans("FreeZone"); ?>
@@ -93,7 +98,12 @@ if (in_array($object->element,array('propal', 'askpricesupplier','facture','invo
 	?>
 	<td colspan="<?php echo $colspan; ?>">&nbsp;</td>
 </tr>
--->
+
+<!-- germinal -->
+<?php 
+ }
+ ?>
+
 <tr <?php echo $bcnd[$var]; ?>>
 <?php
 if (! empty($conf->global->MAIN_VIEW_LINE_NUMBER)) {
@@ -114,7 +124,7 @@ else {
 	}
 
 	// Free line
-	if(false){//endgerminal
+	if(false){//germinal
 	echo '<span>';
 	// Show radio free line
 	if ($forceall >= 0 && (! empty($conf->product->enabled) || ! empty($conf->service->enabled)))
@@ -143,7 +153,7 @@ else {
 	echo $form->select_type_of_lines(isset($_POST["type"])?$_POST["type"]:-1,'type',1,1,$forceall);
 
 	echo '</span>';
-	}	//endgerminal
+ 	}	//endgerminal
 	// Predefined product/service
 	if (! empty($conf->product->enabled) || ! empty($conf->service->enabled))
 	{
@@ -239,7 +249,7 @@ else {
 	}
 	?>
 	<!--germinal-->
-	<td class="nobottom nowrap" align="right" style="visibility:hidden" ><input type="text" size="1" name="remise_percent" id="remise_percent" class="flat" style="visibility:hidden" value="<?php echo (isset($_POST["remise_percent"])?$_POST["remise_percent"]:$buyer->remise_percent); ?>"><span class="hideonsmartphone">%</span></td>
+	<td class="nobottom nowrap" align="right" style=<?php print ($object->element == 'facture')?"visibility:hidden":"" ?> ><input type="text" size="1" name="remise_percent" id="remise_percent" class="flat" style="visibility:hidden" value="<?php echo (isset($_POST["remise_percent"])?$_POST["remise_percent"]:$buyer->remise_percent); ?>"><span class="hideonsmartphone">%</span></td>
 	<?php
 	if ($this->situation_cycle_ref) {
 		$coldisplay++;
@@ -248,7 +258,8 @@ else {
 	if (! empty($usemargins))
 	{
 		?>
-		<td class="nobottom" align="right" class="margininfos" style="visibility:hidden" > <!--germinal-->
+		<!--germinal-->
+		<td class="nobottom" align="right" class="margininfos" style=<?php print ($object->element == 'facture')?"visibility:hidden":"" ?> > 
 			<!-- For predef product -->
 			<?php if (! empty($conf->product->enabled) || ! empty($conf->service->enabled)) { ?>
 			<select id="fournprice_predef" name="fournprice_predef" class="flat" data-role="none" style="display: none;"></select>
