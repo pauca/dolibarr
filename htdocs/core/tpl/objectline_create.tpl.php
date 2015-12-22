@@ -216,9 +216,12 @@ else {
 	if (! empty($conf->global->MAIN_INPUT_DESC_HEIGHT)) $nbrows=$conf->global->MAIN_INPUT_DESC_HEIGHT;
 	$toolbarname='dolibarr_details';
 	if (! empty($conf->global->FCKEDITOR_ENABLE_DETAILS_FULL)) $toolbarname='dolibarr_notes';
-	$doleditor=new DolEditor('dp_desc',GETPOST('dp_desc'),'',100,$toolbarname,'',false,true,$enabled,$nbrows,'98%');
-	$doleditor->Create();
+	// start germinal
+	//$doleditor=new DolEditor('dp_desc',GETPOST('dp_desc'),'',100,$toolbarname,'',false,true,$enabled,0,0,1 );
+	//$doleditor->Create();
 	?>
+	<textarea id="dp_desc" name="dp_desc" rows="0" cols="0" class="flat" style="display:none"></textarea>
+	<!-- end germinal -->
 	</td>
 
 	<?php if ($object->element == 'askpricesupplier') { ?>
