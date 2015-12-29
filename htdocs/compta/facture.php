@@ -3834,7 +3834,8 @@ else if ($id > 0 || ! empty($ref))
 		$formmail->fromtype = 'user';
 		$formmail->fromid = $user->id;
 		$formmail->fromname = $user->getFullName($langs);
-		$formmail->frommail = $user->email;
+		//germinal
+		$formmail->frommail = $conf->global->GERMINAL_DEFAULTEMAIL ; // $user->email;
 		$formmail->withfrom = 1;
 		$liste = array();
 		foreach ($object->thirdparty->thirdparty_and_contact_email_array(1) as $key => $value) {
