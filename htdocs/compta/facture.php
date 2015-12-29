@@ -3841,6 +3841,8 @@ else if ($id > 0 || ! empty($ref))
 		foreach ($object->thirdparty->thirdparty_and_contact_email_array(1) as $key => $value) {
 			$liste [$key] = $value;
 		}
+		//germinal
+		$liste = array_reverse($liste);
 		$formmail->withto = GETPOST('sendto') ? GETPOST('sendto') : $liste; // List suggested for send to
 		$formmail->withtocc = $liste; // List suggested for CC
 		$formmail->withtoccc = $conf->global->MAIN_EMAIL_USECCC;

@@ -462,7 +462,8 @@ class FormMail extends Form
         			if (! empty($this->withto) && is_array($this->withto))
         			{
         				if (! empty($this->withtofree)) $out.= " ".$langs->trans("or")." ";
-        				$out.= $form->selectarray("receiver", $this->withto, GETPOST("receiver"), 1);
+                        //germinal changed last 1 => 0
+        				$out.= $form->selectarray("receiver", $this->withto, GETPOST("receiver"), 0);
         			}
         			if (isset($this->withtosocid) && $this->withtosocid > 0) // deprecated. TODO Remove this. Instead, fill withto with array before calling method.
         			{
