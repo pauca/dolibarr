@@ -51,9 +51,11 @@ function ajax_autocompleter($selected, $htmlname, $url, $urloption='', $minLengt
 
 					// Remove product id before select another product
 					// use keyup instead change to avoid loosing the product id
-					$("input#search_'.$htmlname.'").keydown(function() {
-						//console.log(\'purge_id_after_keydown\');
-						$("#'.$htmlname.'").val("");
+					$("input#search_'.$htmlname.'").keydown(function(e) {
+						//germinal
+						if (e.which != 9) {
+							$("#'.$htmlname.'").val("");
+						}
 					});
 					$("input#search_'.$htmlname.'").change(function() {
 						//console.log(\'change\');
