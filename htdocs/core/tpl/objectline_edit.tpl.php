@@ -52,6 +52,7 @@ if (in_array($object->element,array('propal','askpricesupplier','facture','invoi
 <?php
 $coldisplay=-1; // We remove first td
 ?>
+
 <tr <?php echo $bc[$var]; ?>>
 	<td<?php echo (! empty($conf->global->MAIN_VIEW_LINE_NUMBER) ? ' colspan="2"' : ''); ?>><?php $coldisplay+=(! empty($conf->global->MAIN_VIEW_LINE_NUMBER))?2:1; ?>
 	<div id="line_<?php echo $line->id; ?>"></div>
@@ -96,8 +97,11 @@ $coldisplay=-1; // We remove first td
 		$enable=(isset($conf->global->FCKEDITOR_ENABLE_DETAILS)?$conf->global->FCKEDITOR_ENABLE_DETAILS:0);
 		$toolbarname='dolibarr_details';
 		if (! empty($conf->global->FCKEDITOR_ENABLE_DETAILS_FULL)) $toolbarname='dolibarr_notes';
-		$doleditor=new DolEditor('product_desc',$line->description,'',164,$toolbarname,'',false,true,$enable,$nbrows,'98%');
-		$doleditor->Create();
+		//germinal
+		//$doleditor=new DolEditor('product_desc',$line->description,'',164,$toolbarname,'',false,true,$enable,$nbrows,'98%');
+		//$doleditor->Create();
+		print '<textarea id="product_desc" name="product_desc" rows="3" style="margin-top: 2px; width: 98%; display: none;" class="flat">'.$line->description.'</textarea>';
+		
 	} else {
 		print '<textarea id="desc" class="flat" name="desc" readonly style="width: 200px; height:80px;">' . $line->description . '</textarea>';
 	}
@@ -110,23 +114,25 @@ $coldisplay=-1; // We remove first td
 
 	<?php
 	$coldisplay++;
-	if ($this->situation_counter == 1 || !$this->situation_cycle_ref) {
-		print '<td align="right">' . $form->load_tva('tva_tx',$line->tva_tx,$seller,$buyer,0,$line->info_bits,$line->product_type) . '</td>';
-	} else {
-		print '<td align="right"><input size="1" type="text" class="flat" name="tva_tx" value="' . price($line->tva_tx) . '" readonly />%</td>';
-	}
+	// if ($this->situation_counter == 1 || !$this->situation_cycle_ref) {
+	// 	print '<td align="right">' . $form->load_tva('tva_tx',$line->tva_tx,$seller,$buyer,0,$line->info_bits,$line->product_type) . '</td>';
+	// } else {
+		//germinal
+		print '<td align="right" ><input size="1" type="text" class="flat" name="tva_tx" value="' . price($line->tva_tx) . '" readonly style="display: none;" /> </td>';
+	// }
 
 	$coldisplay++;
 	print '<td align="right"><input type="text" class="flat" size="8" id="price_ht" name="price_ht" value="' . (isset($line->pu_ht)?price($line->pu_ht,0,'',0):price($line->subprice,0,'',0)) . '"';
 	if ($this->situation_counter > 1) print ' readonly';
-	print '></td>';
+	//germinal
+	print 'style="display: none;"  ></td>';
 
 	if ($inputalsopricewithtax)
 	{
 		$coldisplay++;
 		print '<td align="right"><input type="text" class="flat" size="8" id="price_ttc" name="price_ttc" value="'.(isset($line->pu_ttc)?price($line->pu_ttc,0,'',0):'').'"';
 		if ($this->situation_counter > 1) print ' readonly';
-		print '></td>';
+		print ' ></td>';
 	}
 	?>
 	<td align="right"><?php $coldisplay++; ?>
@@ -156,7 +162,8 @@ $coldisplay=-1; // We remove first td
 	<?php if (($line->info_bits & 2) != 2) {
 		print '<input size="1" type="text" class="flat" name="remise_percent" id="remise_percent" value="' . $line->remise_percent . '"';
 		if ($this->situation_counter > 1) print ' readonly';
-		print '>%';
+		//germinal
+		print ' style="display: none;"  >';
 	} else { ?>
 		&nbsp;
 	<?php } ?>
