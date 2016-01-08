@@ -49,7 +49,7 @@ if (in_array($object->element,array('propal', 'askpricesupplier','facture','invo
 <!-- BEGIN PHP TEMPLATE objectline_create.tpl.php -->
 <!-- germinal -->
 <?php 
-print  $object->element;
+ 
  if ($object->element != 'facture') { 
 	?>
 
@@ -181,6 +181,7 @@ else {
 
 		if (empty($senderissupplier))
 		{
+			
 			$form->select_produits(GETPOST('idprod'), 'idprod', $filtertype, $conf->product->limit_size, $buyer->price_level, 1, 2, '', 1, array(),$buyer->id);
 		}
 		else
@@ -219,6 +220,7 @@ else {
 	// start germinal
 	//$doleditor=new DolEditor('dp_desc',GETPOST('dp_desc'),'',100,$toolbarname,'',false,true,$enabled,0,0,1 );
 	//$doleditor->Create();
+	//print $_POST["label2"]."me";
 	?>
 	<textarea id="dp_desc" name="dp_desc" rows="0" cols="0" class="flat" style="display:none"></textarea>
 	<!-- end germinal -->
@@ -495,7 +497,9 @@ if (! empty($usemargins) && $user->rights->margins->creer)
 jQuery(document).ready(function() {
 	/*germinal */
 	setforpredef();
-
+	//$("#search_idprod").attr("autofocus",true);
+	//$("#idprod").attr("autofocus","true");
+	$("#search_idprod").focus();
 	
 	$("#prod_entry_mode_free").on( "click", function() {
 		setforfree();

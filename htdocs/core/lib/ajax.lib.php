@@ -52,7 +52,7 @@ function ajax_autocompleter($selected, $htmlname, $url, $urloption='', $minLengt
 					// Remove product id before select another product
 					// use keyup instead change to avoid loosing the product id
 					$("input#search_'.$htmlname.'").keydown(function(e) {
-						//germinal
+						//console.log(\'purge_id_after_keydown\');
 						if (e.which != 9) {
 							$("#'.$htmlname.'").val("");
 						}
@@ -98,6 +98,8 @@ function ajax_autocompleter($selected, $htmlname, $url, $urloption='', $minLengt
 						    }
                     });
     				$("input#search_'.$htmlname.'").autocomplete({
+    					autoFocus: true,
+    					delay:100,
     					source: function( request, response ) {
     						$.get("'.$url.($urloption?'?'.$urloption:'').'", { '.$htmlname.': request.term }, function(data){
 								if (data != null)

@@ -3692,7 +3692,10 @@ border-top-right-radius: 6px;
 	.imgopensurveywizard { width:95%; height: auto; }
 }
 
-
+/*germinal*/
+a:link > img{
+	width: 3em;
+}
 
 <?php
 if (is_object($db)) $db->close();

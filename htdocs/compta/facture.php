@@ -3504,11 +3504,8 @@ else if ($id > 0 || ! empty($ref))
 		}
 	}
 
-	// Show object lines
-	if (! empty($object->lines))
-		$ret = $object->printObjectLines($action, $mysoc, $soc, $lineid, 1);
-
-	// Form to add new line
+// germinal
+		// Form to add new line
 	if ($object->statut == 0 && $user->rights->facture->creer && $action != 'valid' && $action != 'editline' && ($object->is_first() || !$object->situation_cycle_ref))
 	{
 		if ($action != 'editline')
@@ -3522,6 +3519,12 @@ else if ($id > 0 || ! empty($ref))
 			$reshook = $hookmanager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		}
 	}
+
+	// Show object lines
+	if (! empty($object->lines))
+		$ret = $object->printObjectLines($action, $mysoc, $soc, $lineid, 1);
+
+
 
 	print "</table>\n";
 
@@ -3833,8 +3836,8 @@ else if ($id > 0 || ! empty($ref))
 		$formmail->param['langsmodels']=(empty($newlang)?$langs->defaultlang:$newlang);
 		$formmail->fromtype = 'user';
 		$formmail->fromid = $user->id;
-		$formmail->fromname = $user->getFullName($langs);
 		//germinal
+		$formmail->fromname = $conf->global->GERMINAL_DEFAULTEMAIL;//$user->getFullName($langs);
 		$formmail->frommail = $conf->global->GERMINAL_DEFAULTEMAIL ; // $user->email;
 		$formmail->withfrom = 1;
 		$liste = array();
