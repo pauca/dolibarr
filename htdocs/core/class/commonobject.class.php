@@ -2946,8 +2946,8 @@ abstract class CommonObject
 		require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafieldsline = new ExtraFields($this->db);
 		$extralabelslines=$extrafieldsline->fetch_name_optionals_label($this->table_element_line);
-
-		foreach ($this->lines as $line)
+        //germinal: print in reverse order, top is last
+		foreach (array_reverse($this->lines) as $line)
 		{
 			//Line extrafield
 			$line->fetch_optionals($line->id,$extralabelslines);
