@@ -125,7 +125,8 @@ $coldisplay=-1; // We remove first td
 	print '<td align="right"><input type="text" class="flat" size="8" id="price_ht" name="price_ht" value="' . (isset($line->pu_ht)?price($line->pu_ht,0,'',0):price($line->subprice,0,'',0)) . '"';
 	if ($this->situation_counter > 1) print ' readonly';
 	//germinal
-	print 'style="display: none;"  ></td>';
+	print ' style="display: none; ' ;
+	print ' ></td>';
 
 	if ($inputalsopricewithtax)
 	{
@@ -135,6 +136,7 @@ $coldisplay=-1; // We remove first td
 		print ' ></td>';
 	}
 	?>
+	<td align="right"></td>
 	<td align="right"><?php $coldisplay++; ?>
 	<?php if (($line->info_bits & 2) != 2) {
 		// I comment this because it shows info even when not required
@@ -143,7 +145,7 @@ $coldisplay=-1; // We remove first td
 		//if($line->qty > $line->stock) print img_picto($langs->trans("StockTooLow"),"warning", 'style="vertical-align: bottom;"')." ";
 		print '<input size="3" type="text" class="flat" name="qty" id="qty" value="' . $line->qty . '"';
 		if ($this->situation_counter > 1) print ' readonly';
-		print '>';
+		print '/>';
 	} else { ?>
 		&nbsp;
 	<?php } ?>
@@ -163,7 +165,8 @@ $coldisplay=-1; // We remove first td
 		print '<input size="1" type="text" class="flat" name="remise_percent" id="remise_percent" value="' . $line->remise_percent . '"';
 		if ($this->situation_counter > 1) print ' readonly';
 		//germinal
-		print ' style="display: none;"  >';
+		//print ' style="display: none;" ';
+		print ' >';
 	} else { ?>
 		&nbsp;
 	<?php } ?>

@@ -208,7 +208,8 @@ if (empty($reshook))
 				{
 					//germinal
 					$newprice =  str_replace( ",",".",$_POST["price"]) * 1.20 * (100.0- $_POST["remise_percent"])/100.0  ;
-					$ret = $product->updatePrice($newprice , $_POST["price_base_type"], $user, $_POST["tva_tx"], $newprice );
+					$newminprice = -100.0;
+					$ret = $product->updatePrice($newprice , $_POST["price_base_type"], $user, $_POST["tva_tx"], $newminprice );
 					if (!($ret < 0))
 					{
 						setEventMessage("Preu de client actualitzat", 'warnings');
